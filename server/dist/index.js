@@ -13,7 +13,13 @@ const httpServer = http_1.createServer(app);
 const io = new socket_io_1.Server(httpServer);
 app.use(router_1.default);
 io.on("connection", (socket) => {
-    console.log("new connection");
+    socket.on("join", ({ name, room }, callback) => {
+        console.log(name, room);
+        const error = true;
+        if (error) {
+            callback({ error: "error" });
+        }
+    });
     socket.on("disconnect", () => {
         console.log("disconnected");
     });

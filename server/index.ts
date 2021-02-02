@@ -13,7 +13,9 @@ const io = new Server(httpServer);
 app.use(router);
 
 io.on("connection", (socket: Socket) => {
-  console.log("new connection");
+  socket.on("join", ({ name, room }, callback) => {
+    console.log(name, room);
+  });
 
   socket.on("disconnect", () => {
     console.log("disconnected");
