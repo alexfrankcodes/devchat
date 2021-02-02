@@ -12,5 +12,11 @@ const app = express_1.default();
 const httpServer = http_1.createServer(app);
 const io = new socket_io_1.Server(httpServer);
 app.use(router_1.default);
+io.on("connection", (socket) => {
+    console.log("new connection");
+    socket.on("disconnect", () => {
+        console.log("disconnected");
+    });
+});
 httpServer.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 //# sourceMappingURL=index.js.map

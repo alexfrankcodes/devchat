@@ -1,14 +1,20 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+import styles from "../styles/Join.module.scss";
+
 const Join = () => {
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
 
   return (
-    <div className="joinOuterContainer">
-      <div className="joinInnerHeader">
-        <h1>Join</h1>
+    <div className={styles.outerContainer}>
+      <div className={styles.innerContainer}>
+        <h1>DevChat</h1>
+        <p>
+          Welcome to DevChat! <br />
+          Please enter your display name and which room you would like to join.
+        </p>
         <div>
           <input
             placeholder="Username"
@@ -28,7 +34,7 @@ const Join = () => {
           to={`/chat?name=${name}&room=${room}`}
         >
           <button className="button" type="submit">
-            Sign In
+            Join
           </button>
         </Link>
       </div>
