@@ -2,6 +2,8 @@ import express from "express";
 import { Server, Socket } from "socket.io";
 import { createServer } from "http";
 
+import { addUser, removeUser, getUser, getUsersInRoom } from "./helpers/users";
+
 import router from "./controllers/router";
 
 const PORT = process.env.PORT || 5000;
