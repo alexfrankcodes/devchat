@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const socket_io_1 = require("socket.io");
 const http_1 = require("http");
+const users_1 = require("./helpers/users");
 const router_1 = __importDefault(require("./controllers/router"));
 const PORT = process.env.PORT || 5000;
 const app = express_1.default();
@@ -14,11 +15,24 @@ const io = new socket_io_1.Server(httpServer);
 app.use(router_1.default);
 io.on("connection", (socket) => {
     socket.on("join", ({ name, room }, callback) => {
-        console.log(name, room);
-        const error = true;
-        if (error) {
-            callback({ error: "error" });
-        }
+        const { error, newUser: user } = users_1.addUser({ id: socket.id, name, room });
+        if (error)
+            return callback(error);
+        socket.emit("message", {
+            user: "admin",
+            text: `Hello ${user.name}, welcome to ${user.room}!`,
+        });
+        socket.broadcast.emit("message", {
+            user: "admin",
+            message: `${user.name} has joined the room!`,
+        });
+        socket.join(user.room);
+        callback();
+    });
+    socket.on("sendMessage", (message, callback) => {
+        const user = users_1.getUser(socket.id);
+        io.to(user.room).emit("message", { user: user.name, text: message });
+        callback();
     });
     socket.on("disconnect", () => {
         console.log("disconnected");

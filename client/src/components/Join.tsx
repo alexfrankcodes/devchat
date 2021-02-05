@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import styles from "../styles/Join.module.scss";
 
 const Join = () => {
-  const [name, setName] = useState<String>("");
-  const [room, setRoom] = useState<String>("");
+  const [name, setName] = useState<string>("");
+  const [room, setRoom] = useState<string>("");
 
   return (
     <div className={styles.outerContainer}>

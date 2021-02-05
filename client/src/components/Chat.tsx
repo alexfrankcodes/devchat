@@ -5,15 +5,17 @@ import { io, Socket } from "socket.io-client";
 let socket: Socket;
 
 const Chat = ({ location }: Window) => {
-  const [name, setName] = useState<String>("");
-  const [room, setRoom] = useState<String>("");
+  const [name, setName] = useState<string>("");
+  const [room, setRoom] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
+  const [messages, setMessages] = useState<string[]>([]);
   const ENDPOINT = "localhost:5000";
 
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
 
-    const checkedName: String = name?.toString() || "";
-    const checkedRoom: String = room?.toString() || "";
+    const checkedName: string = name?.toString() || "";
+    const checkedRoom: string = room?.toString() || "";
 
     setName(checkedName);
     setRoom(checkedRoom);
@@ -30,7 +32,35 @@ const Chat = ({ location }: Window) => {
     };
   }, [ENDPOINT, location.search]);
 
-  return <h1>Chat</h1>;
+  useEffect(() => {
+    socket.on("message", (message: string) => {
+      setMessages([...messages, message]);
+    });
+  }, [messages]);
+
+  const sendMessage = (event: React.KeyboardEvent) => {
+    event.preventDefault();
+    if (message) {
+      socket.emit("sendMessage", message, () => {
+        setMessage("");
+      });
+    }
+  };
+
+  console.log(message, messages);
+
+  return (
+    <div>
+      <div>
+        <input
+          value={message}
+          onChange={(event) => setMessage(event.target.value)}
+          onKeyPress={(event) => event.key === "Enter" && sendMessage(event)}
+          type="text"
+        />
+      </div>
+    </div>
+  );
 };
 
 export default Chat;
