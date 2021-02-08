@@ -1,15 +1,14 @@
 import closeIcon from "../icons/closeIcon.png";
-import onlineIcon from "../icons/onlineIcon.png";
+import styles from "../styles/InfoBar.module.scss";
 
 const InfoBar: React.FC<{ room: string }> = ({ room }) => {
   return (
     <div>
-      <div className="infoBar">
-        <div className="leftInnerContainer">
-          <img className="onlineIcon" src={onlineIcon} alt="Online" />
-          <h3>{room}</h3>
+      <div className={styles.outerContainer}>
+        <div className={styles.leftInnerContainer}>
+          <h1>{room}</h1>
         </div>
-        <div className="rightInnerContainer">
+        <div className={styles.rightInnerContainer}>
           <a href="/">
             <img src={closeIcon} alt="Close" />
           </a>

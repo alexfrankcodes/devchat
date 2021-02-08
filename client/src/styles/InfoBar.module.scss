@@ -1,0 +1,25 @@
+.outerContainer {
+  display: flex;
+  background-color: rgb(15, 15, 27);
+  color: white;
+  justify-content: space-between;
+}
+
+.leftInnerContainer {
+  display: flex;
+  padding: 1rem;
+  h1 {
+    font-size: large;
+  }
+}
+
+.rightInnerContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 10%;
+  .closeIcon {
+    width: 20px;
+    height: 20px;
+  }
+}
