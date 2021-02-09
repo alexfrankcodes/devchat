@@ -1,0 +1,20 @@
+.form {
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 90%;
+  padding: 0.5rem;
+  margin: 1rem 3%;
+  bottom: 0;
+}
+
+.sendButton {
+  background-color: blueviolet;
+  padding: 0 1rem;
+  margin: 0 1rem 0 0;
+  height: 2.25rem;
+  border: none;
+  color: white;
+}
