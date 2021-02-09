@@ -1,0 +1,51 @@
+.messageContainerPrimary,
+.messageContainerSecondary {
+  display: flex;
+  margin: 0.5rem;
+  align-items: center;
+}
+
+.messageContainerPrimary {
+  justify-content: flex-start;
+}
+
+.messageContainerSecondary {
+  justify-content: flex-end;
+}
+
+.messageBoxPrimary,
+.messageBoxSecondary {
+  border-radius: 20px;
+  padding: 5px 20px;
+  display: inline-block;
+  max-width: 80%;
+}
+
+.messageBoxPrimary {
+  background-color: blueviolet;
+  color: white;
+}
+
+.messageBoxSecondary {
+  background: #f3f3f3;
+  color: darkslategrey;
+}
+
+.messageTextPrimary,
+.messageTextSecondary {
+  font-size: 1rem;
+  word-wrap: break-word;
+}
+
+.userTextPrimary,
+.userTextSecondary {
+  color: #222020;
+}
+
+.userTextPrimary {
+  padding: 0 0.5rem 0 0;
+}
+
+.userTextSecondary {
+  padding: 0 0 0 0.5rem;
+}
