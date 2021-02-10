@@ -25,9 +25,9 @@ io.on("connection", (socket: Socket) => {
       text: `Hello ${user.name}, welcome to ${user.room}!`,
     });
 
-    socket.broadcast.emit("message", {
+    socket.broadcast.to(user.room).emit("message", {
       user: "admin",
-      message: `${user.name} has joined the room!`,
+      text: `${user.name} has joined the room!`,
     });
 
     socket.join(user.room);
@@ -44,7 +44,14 @@ io.on("connection", (socket: Socket) => {
   });
 
   socket.on("disconnect", () => {
-    console.log("disconnected");
+    const user = removeUser(socket.id);
+
+    if (user) {
+      io.to(user.room).emit("message", {
+        user: "admin",
+        text: `${user.name} has left ${user.room}`,
+      });
+    }
   });
 });
 

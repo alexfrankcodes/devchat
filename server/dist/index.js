@@ -22,9 +22,9 @@ io.on("connection", (socket) => {
             user: "admin",
             text: `Hello ${user.name}, welcome to ${user.room}!`,
         });
-        socket.broadcast.emit("message", {
+        socket.broadcast.to(user.room).emit("message", {
             user: "admin",
-            message: `${user.name} has joined the room!`,
+            text: `${user.name} has joined the room!`,
         });
         socket.join(user.room);
         callback();
@@ -35,7 +35,13 @@ io.on("connection", (socket) => {
         callback();
     });
     socket.on("disconnect", () => {
-        console.log("disconnected");
+        const user = users_1.removeUser(socket.id);
+        if (user) {
+            io.to(user.room).emit("message", {
+                user: "admin",
+                text: `${user.name} has left ${user.room}`,
+            });
+        }
     });
 });
 httpServer.listen(PORT, () => console.log(`Server running on port ${PORT}`));
