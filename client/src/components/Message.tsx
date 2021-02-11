@@ -1,3 +1,5 @@
+import { emojify } from "react-emoji";
+
 import styles from "../styles/Message.module.scss";
 
 const Message: React.FC<{
@@ -15,13 +17,13 @@ const Message: React.FC<{
     <div className={styles.messageContainerPrimary}>
       <p className={styles.userTextPrimary}>{name.trim()}</p>
       <div className={styles.messageBoxPrimary}>
-        <p className={styles.messageTextPrimary}>{text}</p>
+        <p className={styles.messageTextPrimary}>{emojify(text)}</p>
       </div>
     </div>
   ) : (
     <div className={styles.messageContainerSecondary}>
       <div className={styles.messageBoxSecondary}>
-        <p className={styles.messageTextSecondary}>{text}</p>
+        <p className={styles.messageTextSecondary}>{emojify(text)}</p>
       </div>
       <p className={styles.userTextSecondary}>{user}</p>
     </div>
