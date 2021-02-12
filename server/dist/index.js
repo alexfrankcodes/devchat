@@ -27,11 +27,19 @@ io.on("connection", (socket) => {
             text: `${user.name} has joined the room!`,
         });
         socket.join(user.room);
+        io.to(user.room).emit("roomData", {
+            room: user.room,
+            users: users_1.getUsersInRoom(user.room),
+        });
         callback();
     });
     socket.on("sendMessage", (message, callback) => {
         const user = users_1.getUser(socket.id);
         io.to(user.room).emit("message", { user: user.name, text: message });
+        io.to(user.room).emit("roomData", {
+            room: user.room,
+            users: users_1.getUsersInRoom(user.room),
+        });
         callback();
     });
     socket.on("disconnect", () => {

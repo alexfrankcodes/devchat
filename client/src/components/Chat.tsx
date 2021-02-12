@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import queryString from "query-string";
 import { io, Socket } from "socket.io-client";
 
-import InfoBar from "../components/InfoBar";
-import Input from "../components/Input";
-import Messages from "../components/Messages";
+import InfoBar from "./InfoBar";
+import Input from "./Input";
+import Messages from "./Messages";
+import UserList from "./UserList";
 
 import styles from "../styles/Chat.module.scss";
 
@@ -15,6 +16,7 @@ const Chat = ({ location }: Window) => {
   const [room, setRoom] = useState<string>("");
   const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useState<string[]>([]);
+  const [users, setUsers] = useState<string[]>([]);
   const ENDPOINT = "localhost:5000";
 
   useEffect(() => {
@@ -42,6 +44,11 @@ const Chat = ({ location }: Window) => {
     socket.on("message", (message: string) => {
       setMessages([...messages, message]);
     });
+
+    socket.on("roomData", ({ users }: any) => {
+      setUsers(users);
+      console.log(users);
+    });
   }, [messages]);
 
   const sendMessage = (event: React.KeyboardEvent) => {
@@ -66,6 +73,7 @@ const Chat = ({ location }: Window) => {
           sendMessage={sendMessage}
         />
       </div>
+      <UserList users={users} />
     </div>
   );
 };
