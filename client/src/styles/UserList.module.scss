@@ -1,0 +1,13 @@
+.container {
+  background-color: rgb(226, 226, 226);
+  height: 600px;
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 0 5px 5px 0;
+  h2 {
+    font-size: large;
+    padding: 1rem;
+  }
+}
