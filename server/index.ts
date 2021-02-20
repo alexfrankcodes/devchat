@@ -1,6 +1,7 @@
 import express from "express";
 import { Server, Socket } from "socket.io";
 import { createServer } from "http";
+import cors from "cors";
 
 import { addUser, removeUser, getUser, getUsersInRoom } from "./helpers/users";
 
@@ -13,6 +14,7 @@ const httpServer = createServer(app);
 const io = new Server(httpServer);
 
 app.use(router);
+app.use(cors);
 
 io.on("connection", (socket: Socket) => {
   socket.on("join", ({ name, room }, callback) => {
