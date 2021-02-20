@@ -4,7 +4,7 @@
   "description": "Backend for devchat app",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && nodemon dist/index.js"
+    "start": "tsc && node dist/index.js"
   },
   "author": "Alexander Frank",
   "license": "ISC",
